@@ -1,0 +1,928 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    box-sizing: border-box;
+    padding:0;
+}
+body{
+    background-color: #0A0A0A;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+}
+.mega-container{
+    height: calc(100dvh - 87px);
+    overflow-y: scroll;
+    scrollbar-width: none; 
+}
+.mega-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* ===== HEADER ===== */
+.page-title{
+    color: white;
+    font-weight: 700;
+    font-size: 20px;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: -0.3px;
+}
+.header-row{
+    padding-top: 20px;
+    padding-bottom: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.logo{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #333;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 0 0 1px #222;
+}
+
+/* ===== PROSSIME PARTITE ===== */
+.nextMatches-section{
+    display: flex;
+    gap: 40px;
+    margin-top: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.containerPartiteFuture{
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 108px;
+    height: 98px;
+    border-radius: 12px;
+    background-color: #161616;
+    border: 1px solid #262626;
+    transition: border-color 0.2s, background-color 0.2s;
+    cursor: pointer;
+}
+.containerPartiteFuture:hover {
+    background-color: #1C1C1C;
+    border-color: #383838;
+}
+.squadra1, .squadra2{
+    height: 28px;
+    width: 28px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+}
+.rowSquadre{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.giorno{
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.2px;
+}
+.ora{
+    color: #777;
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===== MEGA CARD ===== */
+.megaCard-home{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 32px);
+    margin-top: 18px;
+    background-color: #111;
+    border-radius: 16px;
+    padding: 20px 20px 18px 20px;
+    border: 1px solid #242424;
+    margin-left: 16px;
+    margin-right: 16px;
+    min-height: 200px;
+    position: relative;
+    overflow: hidden;
+}
+.megaCard-home::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+    pointer-events: none;
+}
+.data-card{
+    color: #666;
+    font-weight: 500;
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.card-title{
+    color: white;
+    margin-top: 6px;
+    font-weight: 800;
+    font-size: 28px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+.card-text{
+    color: #666;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+}
+.card-text span {
+    color: #CCC;
+    font-weight: 600;
+}
+.prova{
+    color: #555;
+    font-weight: 500;
+    font-size: 11px;
+    font-style: italic;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 16px;
+    letter-spacing: 0.2px;
+}
+.madeby{
+    font-style: normal;
+    color: #444;
+    font-size: 10px;
+    margin-top: 3px;
+    letter-spacing: 0.5px;
+}
+
+/* ===== BOTTONI SEZIONE ===== */
+.rigaBottoni{
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.bottoneSquadre, .bottoneMarcatori{
+    cursor: pointer;
+    color: #888;
+    background-color: #111;
+    text-align: center;
+    line-height: 38px;
+    border-radius: 99px;
+    border: 1px solid #222;
+    width: auto;
+    padding: 0 18px;
+    height: 38px;
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.bottoneSquadre:hover {
+    border-color: #333;
+    color: #bbb;
+}
+.bottoneAttivo{
+    border-color: white !important;
+    color: white !important;
+    background-color: #1A1A1A !important;
+}
+
+/* ===== TOP SQUADRE / CLASSIFICA ===== */
+.top-squadre-container{
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 20px;
+}
+.top-squadra-container{
+    width: 100%;
+    height: 72px;
+    padding-left: 16px;
+    padding-right: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #111;
+    border-radius: 12px;
+    border: 1px solid #1E1E1E;
+    transition: background-color 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+.top-squadra-container:hover {
+    background-color: #161616;
+    border-color: #2A2A2A;
+}
+.top-squadra-container:first-child {
+    border-color: rgba(255, 215, 0, 0.15);
+    background-color: rgba(255, 200, 0, 0.04);
+}
+.top-squadra-container:nth-child(2) {
+    border-color: rgba(192,192,192, 0.15);
+    background-color: rgba(192,192,192, 0.03);
+}
+.top-squadra-container:nth-child(3) {
+    border-color: rgba(205, 127, 50, 0.15);
+    background-color: rgba(205, 127, 50, 0.03);
+}
+.posizione{
+    color: #555;
+    text-align: center;
+    width: 16px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+}
+.top-squadra-container:first-child .posizione { color: #FFD700; }
+.top-squadra-container:nth-child(2) .posizione { color: #C0C0C0; }
+.top-squadra-container:nth-child(3) .posizione { color: #CD7F32; }
+
+.nome-top-squadra{
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    margin-left: 10px;
+}
+.icon-top-squadra{
+    margin-left: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid #2A2A2A;
+}
+.top-squadra-leftContainer{
+    display: flex;
+    align-items: center;
+}
+.punti-top-squadra{
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+}
+.punti-label {
+    font-size: 10px;
+    color: #555;
+    font-weight: 400;
+    margin-top: 1px;
+    text-align: right;
+}
+
+/* ===== NAVBAR ===== */
+.navBarFine{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 12px;
+    width: 100%;
+    height: 87px;
+    max-height: 87px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    background-color: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(12px);
+    border-top: 0.5px solid #1C1C1C;
+}
+.icon{
+    color: #444;
+    height: 26px;
+    width: 26px;
+    transition: color 0.2s;
+}
+.icon-attiva{
+    color: white;
+}
+.icon-container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 4px 16px;
+    border-radius: 12px;
+    transition: background-color 0.2s;
+}
+.icon-container:hover {
+    background-color: #151515;
+}
+.icon-text{
+    color: white;
+    font-weight: 400;
+    font-size: 10px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===== PARTITE ===== */
+.linea{
+    border: none;
+    height: 1px;
+    background-color: #1A1A1A;
+    margin-top: 12px;
+}
+.sub-title{
+    margin-top: 16px;
+    margin-bottom: 12px;
+    color: #888;
+    font-weight: 600;
+    font-size: 11px;
+    margin-left: 16px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.partite-container{
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: #0A0A0A;
+    width: 100%;
+    height: auto;
+}
+.giorno-text{
+    color: #666;
+    font-size: 11px;
+    margin-top: 16px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.single-match-container{
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+    padding: 14px 0;
+    border-radius: 12px;
+    background: #111;
+    border: 1px solid #1E1E1E;
+    margin-bottom: 8px;
+    padding-left: 14px;
+    padding-right: 14px;
+    min-height: 90px;
+}
+.left-part{
+    display: flex;
+    flex: 1;
+}
+.right-part{
+    width: 80px;
+    flex-shrink: 0;
+}
+.rectangle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    width: 100%;
+    height: 100%;
+    border-left: 1px solid #1E1E1E;
+}
+.squadra1-partite-icon{
+    height: 26px;
+    width: 26px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    border: 1px solid #252525;
+}
+.squadra1-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+.squadre-result-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.squadre-name-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 12px;
+    justify-content: space-between;
+    gap: 8px;
+}
+.squadra-info{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.squadra1-name{
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+}
+.squadra1-result{
+    color: white;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+/* ===== SWIPER OVERRIDE ===== */
+.swiper {
+    padding-right: 16px !important;
+}
+
+/* ===== CLASSIFICA ===== */
+.classifica-container {
+    padding: 0 16px;
+    margin-top: 8px;
+}
+.classifica-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px;
+    margin-bottom: 8px;
+}
+.classifica-header-left {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex: 1;
+}
+.classifica-header-right {
+    display: flex;
+    gap: 0;
+    width: 120px;
+    justify-content: flex-end;
+}
+.classifica-header-num {
+    color: #444;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    width: 16px;
+    text-align: center;
+}
+.classifica-header-squadra {
+    color: #444;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.classifica-header-stat {
+    color: #444;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    width: 40px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+.classifica-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #111;
+    border: 1px solid #1E1E1E;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.classifica-row:hover {
+    background-color: #161616;
+    border-color: #2A2A2A;
+}
+.classifica-top-1 { border-color: rgba(255,215,0,0.15); background-color: rgba(255,200,0,0.04); }
+.classifica-top-2 { border-color: rgba(192,192,192,0.15); background-color: rgba(192,192,192,0.03); }
+.classifica-top-3 { border-color: rgba(205,127,50,0.15); background-color: rgba(205,127,50,0.03); }
+.classifica-row-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+.classifica-row-right {
+    display: flex;
+    width: 120px;
+    justify-content: flex-end;
+}
+.classifica-pos {
+    width: 16px;
+    text-align: center;
+    color: #555;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    flex-shrink: 0;
+}
+.classifica-top-1 .classifica-pos { color: #FFD700; }
+.classifica-top-2 .classifica-pos { color: #C0C0C0; }
+.classifica-top-3 .classifica-pos { color: #CD7F32; }
+.icon-classifica {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #2A2A2A;
+    flex-shrink: 0;
+}
+.nome-squadra-classifica {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+.classifica-stat {
+    width: 40px;
+    text-align: center;
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+.classifica-stat-punti {
+    color: white;
+    font-weight: 700;
+}
+.legenda-classifica {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 16px 20px;
+    border-top: 1px solid #1A1A1A;
+    margin-top: 8px;
+}
+.legenda-elem {
+    color: #555;
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.legenda-elem span {
+    opacity: 0.5;
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+/* ===== INFO SQUADRA ===== */
+.info-squadra-header {
+    padding: 16px 16px 0;
+}
+.arrow-back-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: #161616;
+    border: 1px solid #262626;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.arrow-back-container:hover {
+    background-color: #1E1E1E;
+    border-color: #333;
+}
+.arrow-left {
+    color: white;
+    width: 16px;
+    height: 16px;
+}
+.info-squadra-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 20px;
+    gap: 12px;
+}
+.icona-squadra-info {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #2A2A2A;
+}
+.nome-squadra-info {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.3px;
+}
+.nav-bar-infopartita {
+    display: flex;
+    border-bottom: 1px solid #1A1A1A;
+    margin: 0 16px;
+    gap: 0;
+}
+.nav-bar-infopartita-elem {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    color: #444;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+.nav-bar-infopartita-elem:hover {
+    color: #888;
+}
+.tab-attiva {
+    color: white !important;
+    border-bottom: 2px solid white;
+}
+
+/* ===== CAPO CANNONIERE ===== */
+.capo-cannoniere {
+    background-color: #111;
+    border: 1px solid #1E1E1E;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+}
+.capo-cannoniere-label {
+    color: #555;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+.capo-cannoniere-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nome-capocannoniere {
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+}
+.gol-capocannoniere {
+    color: #666;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ===== COMPONENTI SQUADRA ===== */
+.componente-squadra-container {
+    display: flex;
+    align-items: center;
+    background-color: #111;
+    border: 1px solid #1E1E1E;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    gap: 14px;
+    transition: background-color 0.2s;
+}
+.componente-squadra-container:hover {
+    background-color: #161616;
+}
+.numero-maglia {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background-color: #1A1A1A;
+    border: 1px solid #2A2A2A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    flex-shrink: 0;
+}
+.center-componente {
+    flex: 1;
+}
+.nome-componente {
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+.info-componente {
+    color: #555;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 2px;
+}
+.right-componente {
+    flex-shrink: 0;
+}
+.ruolo-componente {
+    color: #555;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    background-color: #1A1A1A;
+    border: 1px solid #2A2A2A;
+    padding: 3px 10px;
+    border-radius: 99px;
+}
+/* ===== INFO PARTITA - HERO RISULTATO ===== */
+.match-hero-card{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 16px;
+    margin-top: 16px;
+    border-radius: 16px;
+    border: 1px solid #1E1E1E;
+    background-color: #111;
+    position: relative;
+    overflow: hidden;
+}
+.match-hero-card::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+    pointer-events: none;
+}
+.match-team-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    text-align: center;
+}
+.match-team-icon{
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #2A2A2A;
+}
+.match-team-name{
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.3;
+}
+.match-score-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 0 14px;
+    flex-shrink: 0;
+}
+.match-score-label{
+    color: #555;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.match-score{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.5px;
+}
+.match-score-sep{
+    color: #444;
+    font-weight: 500;
+    font-size: 22px;
+}
+
+/* ===== INFO PARTITA - TIMELINE ===== */
+.timeline-title{
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: #888;
+    font-weight: 600;
+    font-size: 11px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.timeline-list{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.timeline-item{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: #111;
+    border: 1px solid #1E1E1E;
+    border-radius: 12px;
+    padding: 12px 16px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+.timeline-item:hover{
+    background-color: #161616;
+    border-color: #2A2A2A;
+}
+.timeline-icon-container{
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: #1A1A1A;
+    border: 1px solid #2A2A2A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 13px;
+    color: #666;
+}
+.evento-icon-gol{ color: #4ADE80; }
+.evento-icon-giallo{ color: #FFD700; }
+.evento-icon-rosso{ color: #FF5C5C; }
+.evento-icon-sostituzione{ color: #60A5FA; }
+.evento-icon-default{ color: #666; }
+.timeline-center{
+    flex: 1;
+}
+.timeline-player{
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+.timeline-event{
+    color: #666;
+    font-size: 12px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 2px;
+}
+.timeline-empty{
+    color: #555;
+    font-size: 13px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    padding: 32px 0;
+}
+.logoSquadra-infopartita{
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    background-size: cover;
+    width:20px;
+    height:20px;
+}

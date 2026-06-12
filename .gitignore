@@ -1,0 +1,11 @@
+# Ignora i node_modules ovunque si trovino (sia nel client che nel server)
+**/node_modules/
+node_modules/
+
+# Ignora i file di configurazione segreti (.env)
+**/.env
+.env
+
+# Ignora le cartelle di build finali (inutili su GitHub)
+**/dist/
+**/build/

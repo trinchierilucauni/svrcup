@@ -1,0 +1,61 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+import Partite from './Partite.jsx'
+import Classifica from "./Classifica.jsx";
+import InfoSquadra from "./InfoSquadra.jsx"
+import NavBar from "./NavBar.jsx"
+import InfoPartita from './InfoPartita.jsx'
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+function AppLayout(){
+  return(
+    <>
+      <main>
+        <Outlet>
+
+        </Outlet>
+
+      </main>
+      <NavBar></NavBar>
+    </>
+
+  );
+}
+if (window.location.pathname !== "/") {
+  window.location.replace("/");
+}
+
+const router= createBrowserRouter([{
+  path:"/",
+  element: <AppLayout/>,
+  children: [
+    {
+      path: "/",
+      element: <App></App>
+    },
+    {
+      path: "partite",
+      element: <Partite></Partite>
+    },
+    {
+      path: "infosquadra",
+      element: <InfoSquadra></InfoSquadra>
+    },
+    {
+      path: "classifica",
+      element: <Classifica></Classifica>
+    },
+    {
+      path: "infopartita",
+      element: <InfoPartita></InfoPartita>
+    }
+
+  ]
+}]);
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <RouterProvider router={router}></RouterProvider>
+  </StrictMode>,
+)
