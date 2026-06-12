@@ -23,8 +23,10 @@ function App(){
   const [isAttivo, setisAttivo] = useState(true);
   const [isAttivo2, setisAttivo2] = useState(false);
   const navigate= useNavigate();
+  
   const elencoPartite = async () => {
-    const response = await fetch("http://192.168.1.3:3001/api/partiteRow", {
+    // Sostituito l'IP fisso con la variabile d'ambiente di Vite
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/partiteRow`, {
       method: "POST",
       headers: {"Content-Type": "application/json"},
     });
@@ -35,7 +37,8 @@ function App(){
   }
 
   const classifica = async () => {
-    const response = await fetch("http://192.168.1.3:3001/api/classifica", {
+    // Sostituito l'IP fisso con la variabile d'ambiente di Vite
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/classifica`, {
       method: "POST",
       headers: {"Content-Type": "application/json"}
     });

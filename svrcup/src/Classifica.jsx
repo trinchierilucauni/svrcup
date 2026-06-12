@@ -7,7 +7,8 @@ function Classifica(){
     const navigate = useNavigate();
 
     const classifica = async () => {
-        const response = await fetch("http://localhost:3001/api/classificaCompleta", {
+        // Sostituito localhost con la variabile d'ambiente di Vite usando i backtick
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/classificaCompleta`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
         });

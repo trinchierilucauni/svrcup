@@ -7,10 +7,12 @@ const app = express();
 app.use(cors()); 
 app.use(express.json()); 
 
-
-
+// Configurazione Client modificata per supportare SSL in produzione
 const client = new Client({
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
+  ssl: process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost') 
+    ? { rejectUnauthorized: false } 
+    : false
 });
 
 client.connect()
@@ -27,10 +29,8 @@ app.post("/api/partiteRow", async(req, res)=>{
     res.json(risultato);
   }catch(errore){
     console.log(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
-
-
-
 });
 
 app.post("/api/partite", async(req, res)=>{
@@ -40,6 +40,7 @@ app.post("/api/partite", async(req, res)=>{
     res.json(risultato);
   }catch(errore){
     console.log(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
 });
 
@@ -52,9 +53,8 @@ app.post("/api/classifica", async(req, res)=>{
     res.json(risultato);
   }catch(errore){
     console.error(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
-
-
 });
 
 
@@ -66,10 +66,8 @@ app.post("/api/partitemancanti", async(req, res)=>{
     res.json(risultato);
   }catch(errore){
     console.log("Errore", errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
-
-
-
 });
 
 app.post("/api/classificaCompleta", async(req, res)=>{
@@ -79,9 +77,8 @@ app.post("/api/classificaCompleta", async(req, res)=>{
     res.json(risultato);
   }catch(errore){
     console.log("Errore", errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
-
-
 });
 
 app.post("/api/componentiSquadra", async(req,res)=>{
@@ -92,9 +89,8 @@ app.post("/api/componentiSquadra", async(req,res)=>{
     res.json(risultato);
   }catch(errore){
     console.log(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
-
-
 });
 
 app.post("/api/cercaPartita", async(req, res)=>{
@@ -107,6 +103,7 @@ app.post("/api/cercaPartita", async(req, res)=>{
     res.json(risultato);
   }catch(errore){
     console.log(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
 });
 
@@ -123,25 +120,27 @@ app.post("/api/dettagliPartita", async(req, res)=>{
     const risultato= await client.query(query, [id_partita]);
     console.log(risultato);
     res.json(risultato);
-
   }catch(errore){
     console.log(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
-
 });
+
 app.post("/api/allEventi", async(req, res)=>{
   const {id_partita}= req.body;
   const query= "select s.icon, s.icon_square, e.evento_info, e.giocatore from eventi e join giocatori g on e.giocatore=g.nome_giocatore join squadre s on s.nome=g.squadra_giocatore where id_partita=$1"
   try{
     const risultato= await client.query(query, [id_partita]);
     res.json(risultato);
-  console.log("Stocazzo",id_partita);
-
+    console.log("ID Partita eventi:", id_partita);
   }catch(errore){
     console.log(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
 });
 
-app.listen(3001, () => {
-  console.log('Server in ascolto sulla porta 3001!');
+// Modificata la porta per renderla dinamica con process.env.PORT
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+  console.log(`Server in ascolto sulla porta ${PORT}!`);
 });

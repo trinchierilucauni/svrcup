@@ -1,6 +1,7 @@
 import {useLocation, useNavigate} from "react-router-dom";
 import { FaArrowLeftLong, FaFutbol, FaArrowRightArrowLeft, FaSquare } from "react-icons/fa6";
 import {useState, useEffect} from "react";
+
 function InfoPartita(){
     const navigate= useNavigate();
     const location= useLocation();
@@ -11,17 +12,19 @@ function InfoPartita(){
     const gestisciClickArrow = () => { navigate(-1); }
 
     const cercaPartita= async()=>{
-        const response= await fetch("http://localhost:3001/api/cercaPartita",{
+        // Sostituito localhost con la variabile d'ambiente di Vite usando i backtick
+        const response= await fetch(`${import.meta.env.VITE_API_URL}/api/cercaPartita`,{
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({id_partita: dati.id_partita})
         });
         const data= await response.json();
         setPartita(data.rows);
-
     }
+
     const infoPartita= async()=>{
-        const response= await fetch("http://localhost:3001/api/dettagliPartita",{
+        // Sostituito localhost con la variabile d'ambiente di Vite usando i backtick
+        const response= await fetch(`${import.meta.env.VITE_API_URL}/api/dettagliPartita`,{
             method: "POST",
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify({id_partita: dati.id_partita})
@@ -30,8 +33,10 @@ function InfoPartita(){
         console.log(data.rows);
         setdettagliPartita(data.rows);
     }
+
     const allEventi= async()=>{
-        const response= await fetch("http://localhost:3001/api/allEventi", {
+        // Sostituito localhost con la variabile d'ambiente di Vite usando i backtick
+        const response= await fetch(`${import.meta.env.VITE_API_URL}/api/allEventi`, {
             method: "POST",
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify({id_partita: dati.id_partita})

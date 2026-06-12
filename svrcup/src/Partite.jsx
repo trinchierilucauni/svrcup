@@ -6,7 +6,8 @@ function Partite(){
     const [partite, setPartite] = useState([]);
 
     const chePartite = async () => {
-        const response = await fetch("http://192.168.1.3:3001/api/partite", {
+        // Sostituito l'IP fisso con la variabile d'ambiente di Vite usando i backtick
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/partite`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
         });
