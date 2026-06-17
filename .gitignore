@@ -1,11 +1,9 @@
-# Ignora i node_modules ovunque si trovino (sia nel client che nel server)
+# Escludi node_modules ovunque
 **/node_modules/
 node_modules/
 
-# Ignora i file di configurazione segreti (.env)
+# Escludi file segreti e build
 **/.env
 .env
-
-# Ignora le cartelle di build finali (inutili su GitHub)
 **/dist/
 **/build/
