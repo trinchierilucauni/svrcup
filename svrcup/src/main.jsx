@@ -2,12 +2,14 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
+import { Navigate } from 'react-router-dom'
 import Partite from './Partite.jsx'
 import Classifica from "./Classifica.jsx";
 import InfoSquadra from "./InfoSquadra.jsx"
 import NavBar from "./NavBar.jsx"
 import InfoPartita from './InfoPartita.jsx'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import ClassificaGironi from './ClassificaGironi.jsx'
 function AppLayout(){
   return(
     <>
@@ -21,9 +23,6 @@ function AppLayout(){
     </>
 
   );
-}
-if (window.location.pathname !== "/") {
-  window.location.replace("/");
 }
 
 const router= createBrowserRouter([{
@@ -44,12 +43,17 @@ const router= createBrowserRouter([{
     },
     {
       path: "classifica",
-      element: <Classifica></Classifica>
+      element: <ClassificaGironi></ClassificaGironi>
     },
     {
       path: "infopartita",
       element: <InfoPartita></InfoPartita>
+    },
+    {
+        path: "*",
+        element: <Navigate to="/" replace />
     }
+
 
   ]
 }]);

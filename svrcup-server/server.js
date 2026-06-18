@@ -135,6 +135,32 @@ app.post("/api/allEventi", async (req, res) => {
     res.status(500).json({ errore: "Errore del server" });
   }
 });
+app.post("/api/classificaGironeA", async(req, res)=>{
+  const query= "select * from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='A' order by c.punti"
+  try{
+    const risultato= await pool.query(query);
+    res.json(risultato.rows);
+  }catch(errore){
+    console.log(errore);
+  }
+
+
+});
+
+app.post("/api/classificaGironeB", async(req, res)=>{
+  const query= "select * from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='B' order by c.punti"
+  try{
+    const risultato= await pool.query(query);
+    res.json(risultato.rows);
+  }catch(errore){
+    console.log(errore);
+  }
+
+
+});
+
+
+
 
 // Porta dinamica per Render
 const PORT = process.env.PORT || 3001;

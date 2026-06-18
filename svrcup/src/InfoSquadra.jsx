@@ -21,7 +21,7 @@ function InfoSquadra(){
             body: JSON.stringify({nome: dati.nome})
         });
         const data = await response.json();
-        setpartite(data.rows);
+        setpartite(data);
     }
 
     const gestisciClickArrow = () => { navigate(-1); }
@@ -48,7 +48,7 @@ function InfoSquadra(){
             body: JSON.stringify({nomeSquadra})
         });
         const data = await response.json();
-        setcomponentiSquadra(data.rows);
+        setcomponentiSquadra(data);
         let temp = 0, tempNome = "";
         for(let i = 0; i < data.rows.length; i++){
             if(data.rows[i].gol > temp){
@@ -66,7 +66,7 @@ function InfoSquadra(){
             headers: {"Content-Type": "application/json"},
         });
         const data = await response.json();
-        setclassificaSquadre(data.rows);
+        setclassificaSquadre(data);
     }
 
     const gestisciClickSuSquadra=(e, infoSquadra)=>{

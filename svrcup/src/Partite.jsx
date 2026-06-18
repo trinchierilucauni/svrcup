@@ -13,7 +13,7 @@ function Partite(){
             headers: {"Content-Type": "application/json"},
         });
         const data = await response.json();
-        setPartite(data.rows);
+        setPartite(data);
     }
 
     const cheGiorno = (data) => {

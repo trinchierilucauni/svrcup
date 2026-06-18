@@ -32,7 +32,7 @@ function App(){
     });
     const data = await response.json();
     const temp = [];
-    for(let i = 0; i < 5; i++) temp.push(data.rows[i]);
+    for(let i = 0; i < 5; i++) temp.push(data[i]);
     setPartiteFuture(temp);
   }
 
@@ -43,7 +43,8 @@ function App(){
       headers: {"Content-Type": "application/json"}
     });
     const data = await response.json();
-    settopSquadre(data.rows);
+    console.log("Dati", data);
+    settopSquadre(data);
   }
 
   const cheDataScrivo = (key) => {

@@ -13,7 +13,7 @@ function Classifica(){
             headers: {"Content-Type": "application/json"},
         });
         const data = await response.json();
-        setclassificaSquadre(data.rows);
+        setclassificaSquadre(data);
     }
 
     const gestisciClickSuSquadra = (infoSquadra) => {
