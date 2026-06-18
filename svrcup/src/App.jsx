@@ -31,9 +31,9 @@ function App(){
       headers: {"Content-Type": "application/json"},
     });
     const data = await response.json();
-    const temp = [];
-    for(let i = 0; i < 5; i++) temp.push(data[i]);
-    setPartiteFuture(temp);
+    // Prende al massimo 5 partite, senza creare elementi "undefined"
+    // se il backend ne restituisce meno di 5
+    setPartiteFuture(data.slice(0, 5));
   }
 
   const classifica = async () => {
@@ -91,17 +91,19 @@ function App(){
               navigation={false}
             >
               {partiteFuture.map((key, index) => (
-                <SwiperSlide key={index} style={{ width: "auto" }}>
-                  <div className="containerPartiteFuture">
-                    <div className="rowSquadre">
-                      <div className="squadra1" style={{ backgroundImage: `url(${key.icon1})` }}></div>
-                      <div style={{color:"#333", fontSize:"12px", fontWeight:"700"}}>vs</div>
-                      <div className="squadra2" style={{ backgroundImage: `url(${key.icon2})` }}></div>
+                key && (
+                  <SwiperSlide key={index} style={{ width: "auto" }}>
+                    <div className="containerPartiteFuture">
+                      <div className="rowSquadre">
+                        <div className="squadra1" style={{ backgroundImage: `url(${key.icon1})` }}></div>
+                        <div style={{color:"#333", fontSize:"12px", fontWeight:"700"}}>vs</div>
+                        <div className="squadra2" style={{ backgroundImage: `url(${key.icon2})` }}></div>
+                      </div>
+                      <div className="giorno">{cheDataScrivo(key)}</div>
+                      <div className="ora">{cheOraScrivo(key.giorno)}</div>
                     </div>
-                    <div className="giorno">{cheDataScrivo(key)}</div>
-                    <div className="ora">{cheOraScrivo(key.giorno)}</div>
-                  </div>
-                </SwiperSlide>
+                  </SwiperSlide>
+                )
               ))}
             </Swiper>
           </div>
