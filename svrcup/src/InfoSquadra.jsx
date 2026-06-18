@@ -50,7 +50,7 @@ function InfoSquadra(){
         const data = await response.json();
         setcomponentiSquadra(data);
         let temp = 0, tempNome = "";
-        for(let i = 0; i < data.rows.length; i++){
+        for(let i = 0; i < data.length; i++){
             if(data.rows[i].gol > temp){
                 temp = data.rows[i].gol;
                 tempNome = data.rows[i].nome_giocatore;

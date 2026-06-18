@@ -1,9 +1,13 @@
 import {useState, useEffect} from "react";
 import logo from "./assets/logo.png"
+import { useNavigate } from "react-router-dom";
 function ClassificaGironi(){
     const [classificaSquadreA, setclassificaSquadreA]= useState([]);
     const [classificaSquadreB, setclassificaSquadreB]= useState([]);
-
+    const navigate= useNavigate();
+    const gestisciClickSuSquadra = (infoSquadra) => {
+        navigate("/infosquadra", {state: infoSquadra});
+    }
     const classificaGironeA= async()=>{
         const response= await fetch(`${import.meta.env.VITE_API_URL}/api/classificaGironeA`, {
             method: "POST",
