@@ -29,7 +29,7 @@ pool.connect()
 app.post("/api/partiteRow", async (req, res) => {
   const query = `
     select p.id_partita, s.nome as nome1, p.giorno, s2.nome as nome2, s.icon as icon1, s2.icon as icon2
-    from partite p join squadre s on p.squadra1=s.nome join squadre s2 on p.squadra2=s2.nome`;
+    from partite p join squadre s on p.squadra1=s.nome join squadre s2 on p.squadra2=s2.nome order by giorno`;
   try {
     const risultato = await pool.query(query);
     res.json(risultato.rows); // Restituisce solo le righe
