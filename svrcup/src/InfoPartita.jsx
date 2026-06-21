@@ -30,8 +30,8 @@ function InfoPartita(){
             body: JSON.stringify({id_partita: dati.id_partita})
         });
         const data= await response.json();
-        console.log(data.rows);
-        setdettagliPartita(data.rows);
+        console.log(data);
+        setdettagliPartita(data);
     }
 
     const allEventi= async()=>{
@@ -42,8 +42,8 @@ function InfoPartita(){
             body: JSON.stringify({id_partita: dati.id_partita})
         });
         const data= await response.json();
-        console.log("Ciao2",data.rows)
-        seteventi(data.rows);
+        console.log("Ciao2",data)
+        seteventi(data);
     }
 
     useEffect(()=>{
