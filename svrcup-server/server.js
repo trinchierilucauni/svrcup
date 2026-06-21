@@ -40,7 +40,7 @@ app.post("/api/partiteRow", async (req, res) => {
 });
 
 app.post("/api/partite", async (req, res) => {
-  const query = "select p.id_partita, p.squadra1, p.squadra2, risultato1, risultato2, giorno, s.icon as icon1, s2.icon as icon2 from partite p join squadre s on p.squadra1=s.nome join squadre s2 on p.squadra2= s2.nome order by giorno";
+  const query = "select p.id_partita, p.squadra1, p.squadra2, risultato1, risultato2, giorno, s.icon as icon1, s2.icon as icon2 from partite p join squadre s on p.squadra1=s.nome join squadre s2 on p.squadra2= s2.nome order by giorno DESC";
   try {
     const risultato = await pool.query(query);
     res.json(risultato.rows);
