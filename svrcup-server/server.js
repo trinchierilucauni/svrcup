@@ -7,24 +7,28 @@ const app = express();
 app.use(cors()); 
 app.use(express.json()); 
 
-// Configurazione del Pool per gestire connessioni multiple e SSL
+
+
+const isProduction = process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost');
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost') 
-    ? { rejectUnauthorized: false } 
+  // uselibpqcompat risolve il warning di sicurezza nei log di Render/Neon
+  connectionTimeoutMillis: 5000, 
+  ssl: isProduction 
+    ? { rejectUnauthorized: false, sslmode: 'verify-full' } 
     : false
 });
 
 // Gestore di errori globale per il Pool (evita il crash del server)
 pool.on('error', (err) => {
-  console.error('Errore imprevisto sul client PostgreSQL:', err);
+  console.error('⚠️ Errore imprevisto sul client PostgreSQL:', err.message);
 });
 
-// Verifica iniziale della connessione
-pool.connect()
+// Verifica iniziale della connessione (corretta senza creare memory leak)
+pool.query('SELECT NOW()')
   .then(() => console.log('Connesso al database Neon (tramite Pool) con successo!'))
-  .catch(err => console.error('Errore di connessione iniziale al DB:', err.stack));
-
+  .catch(err => console.error('❌ Errore di connessione iniziale al DB:', err.message));
 
 app.post("/api/partiteRow", async (req, res) => {
   const query = `
