@@ -51,9 +51,9 @@ function InfoSquadra(){
         setcomponentiSquadra(data);
         let temp = 0, tempNome = "";
         for(let i = 0; i < data.length; i++){
-            if(data.rows[i].gol > temp){
-                temp = data.rows[i].gol;
-                tempNome = data.rows[i].nome_giocatore;
+            if(data[i].gol > temp){
+                temp = data[i].gol;
+                tempNome = data[i].nome_giocatore;
             }
         }
         setcapoCannoniere({nome: tempNome, gol: temp});
