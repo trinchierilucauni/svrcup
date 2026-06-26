@@ -28,6 +28,7 @@ function AppLayout(){
 const router= createBrowserRouter([{
   path:"/",
   element: <AppLayout/>,
+  errorElement: <Navigate to="/" replace />,
   children: [
     {
       path: "/",
