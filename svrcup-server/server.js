@@ -168,6 +168,20 @@ app.post("/api/classificaGironeB", async (req, res) => {
   }
 });
 
+
+
+app.post("/api/classificaMarcatori", async (req, res) => {
+  const query = "select g.id_giocatore, g.nome_giocatore, g.gol, s.icon_square from giocatori g join squadre s on g.squadra_giocatore = s.nome order by gol LIMIT 5";
+  try {
+    const risultato = await pool.query(query);
+    res.json(risultato.rows);
+  } catch (errore) {
+    console.error(errore);
+    res.status(500).json({ errore: "Errore del server" });
+  }
+});
+
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server in ascolto sulla porta ${PORT}!`);

@@ -22,6 +22,7 @@ function App(){
   const [topSquadre, settopSquadre] = useState([]);
   const [isAttivo, setisAttivo] = useState(true);
   const [isAttivo2, setisAttivo2] = useState(false);
+  const [classificaMarcatoriState, setclassificaMarcatoriState]= useState([]);
   const navigate= useNavigate();
   
   const ottieniDataOraItalia = () => {
@@ -83,6 +84,15 @@ const elencoPartite = async () => {
     return dataDalDb.getDate() + " " + dataDalDb.toLocaleString('en-EN', {month: 'short'});
   }
 
+  const classificaMarcatori= async()=>{
+    const response= await fetch(`${import.meta.env.VITE_API_URL}/api/classificaMarcatori`, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+    })
+    const data= await response.json();
+    setclassificaMarcatoriState(data);
+  }
+
 const cheOraScrivo = (giorno) => {
 const d = new Date(giorno);
   
@@ -102,6 +112,7 @@ const d = new Date(giorno);
   useEffect(() => {
     elencoPartite();
     classifica();
+    classificaMarcatori();
   }, []);
 
   return (
@@ -186,7 +197,19 @@ const d = new Date(giorno);
 
           {sezioneAttiva === "marcatori" && (
             <div className="marcatori-container" style={{padding:"40px 16px", textAlign:"center"}}>
-              <div style={{color:"#444", fontSize:"14px", fontFamily:"Poppins, sans-serif"}}>Dati in arrivo...</div>
+              {classificaMarcatoriState.map((key, index)=>(
+                <div className="top-squadra-container" key={key.id_giocatore} >
+                  <div className="top-squadra-leftContainer">
+                    <div className="posizione">{index + 1}</div>
+                    <div className="icon-top-squadra" style={{backgroundImage: `url(${key.icon_square})`}}></div>
+                    <div className="nome-top-squadra">{key.nome_giocatore}</div>
+                  </div>
+                  <div>
+                    <div className="punti-top-squadra">{key.gol}</div>
+                    <div className="punti-label">pts</div>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
         </main>
