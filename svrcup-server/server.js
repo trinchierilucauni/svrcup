@@ -3,19 +3,28 @@ const cors = require('cors');
 const { Pool } = require('pg'); 
 require('dotenv').config();
 
+// Cattura errori non gestiti per evitare crash
+process.on('uncaughtException', (err) => {
+  console.error('⚠️ Uncaught Exception:', err.message);
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('⚠️ Unhandled Rejection:', reason);
+});
+
 const app = express();
 app.use(cors()); 
 app.use(express.json()); 
-
-
 
 const isProduction = process.env.DATABASE_URL && !process.env.DATABASE_URL.includes('localhost');
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  connectionTimeoutMillis: 5000, 
+  connectionTimeoutMillis: 5000,
+  idleTimeoutMillis: 30000,
+  max: 10,
   ssl: isProduction 
-    ? { rejectUnauthorized: false, sslmode: 'verify-full' } 
+    ? { rejectUnauthorized: false } 
     : false
 });
 
@@ -33,7 +42,7 @@ app.post("/api/partiteRow", async (req, res) => {
     from partite p join squadre s on p.squadra1=s.nome join squadre s2 on p.squadra2=s2.nome order by giorno`;
   try {
     const risultato = await pool.query(query);
-    res.json(risultato.rows); // Restituisce solo le righe
+    res.json(risultato.rows);
   } catch (errore) {
     console.error(errore);
     res.status(500).json({ errore: "Errore del server" });
@@ -127,7 +136,7 @@ app.post("/api/dettagliPartita", async (req, res) => {
 
 app.post("/api/allEventi", async (req, res) => {
   const { id_partita } = req.body;
-  const query = "select s.icon, s.icon_square, e.evento_info, e.giocatore from eventi e join giocatori g on e.giocatore=g.nome_giocatore join squadre s on s.nome=g.squadra_giocatore where id_partita=$1"
+  const query = "select s.icon, s.icon_square, e.evento_info, e.giocatore from eventi e join giocatori g on e.giocatore=g.nome_giocatore join squadre s on s.nome=g.squadra_giocatore where id_partita=$1";
   try {
     const risultato = await pool.query(query, [id_partita]);
     res.json(risultato.rows);
@@ -136,34 +145,29 @@ app.post("/api/allEventi", async (req, res) => {
     res.status(500).json({ errore: "Errore del server" });
   }
 });
-app.post("/api/classificaGironeA", async(req, res)=>{
-  const query= "select * from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='A' order by c.punti"
-  try{
-    const risultato= await pool.query(query);
+
+app.post("/api/classificaGironeA", async (req, res) => {
+  const query = "select * from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='A' order by c.punti";
+  try {
+    const risultato = await pool.query(query);
     res.json(risultato.rows);
-  }catch(errore){
-    console.log(errore);
+  } catch (errore) {
+    console.error(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
-
-
 });
 
-app.post("/api/classificaGironeB", async(req, res)=>{
-  const query= "select * from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='B' order by c.punti"
-  try{
-    const risultato= await pool.query(query);
+app.post("/api/classificaGironeB", async (req, res) => {
+  const query = "select * from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='B' order by c.punti";
+  try {
+    const risultato = await pool.query(query);
     res.json(risultato.rows);
-  }catch(errore){
-    console.log(errore);
+  } catch (errore) {
+    console.error(errore);
+    res.status(500).json({ errore: "Errore del server" });
   }
-
-
 });
 
-
-
-
-// Porta dinamica per Render
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server in ascolto sulla porta ${PORT}!`);
