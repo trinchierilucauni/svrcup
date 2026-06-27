@@ -147,7 +147,7 @@ app.post("/api/allEventi", async (req, res) => {
 });
 
 app.post("/api/classificaGironeA", async (req, res) => {
-  const query = "select * from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='A' order by c.punti";
+  const query = "select s.nome, s.icon, s.icon_square, c.punti, s.partite_giocate, s.gol_fatti, s.gol_subiti, c.girone from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='A' order by c.punti";
   try {
     const risultato = await pool.query(query);
     res.json(risultato.rows);
