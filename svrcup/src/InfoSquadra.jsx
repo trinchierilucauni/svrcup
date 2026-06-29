@@ -12,7 +12,10 @@ function InfoSquadra(){
     const [componentiSquadra, setcomponentiSquadra] = useState([]);
     const [capoCannoniere, setcapoCannoniere] = useState({});
     const [classificaSquadre, setclassificaSquadre]= useState([]);
+    const [classificaSquadreA, setclassificaSquadreA]= useState([]);
+    const [classificaSquadreB, setclassificaSquadreB]= useState([]);
 
+    const [girone, setgirone]= useState("");
     const partitedellaSquadra = async () => {
         // Sostituito localhost con la variabile d'ambiente di Vite usando i backtick
         const response = await fetch(`${import.meta.env.VITE_API_URL}/api/partitemancanti`, {
@@ -69,6 +72,27 @@ function InfoSquadra(){
         setclassificaSquadre(data);
     }
 
+    const classificaGironeA= async()=>{
+        const response= await fetch(`${import.meta.env.VITE_API_URL}/api/classificaGironeA`, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            
+        })
+        const data= await response.json();
+        console.log(data);
+        setclassificaSquadreA(data);
+    }
+    const classificaGironeB= async()=>{
+        const response= await fetch(`${import.meta.env.VITE_API_URL}/api/classificaGironeB`, {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            
+        })
+        const data= await response.json();
+        console.log("Giorni:",data);
+        setclassificaSquadreB(data);
+    }
+
     const gestisciClickSuSquadra=(e, infoSquadra)=>{
         e.stopPropagation();
         setelemSelezionato("partite");
@@ -83,6 +107,14 @@ function InfoSquadra(){
         partitedellaSquadra();
         componentiSquadraFun(dati.nome);
         classifica();
+        if(["Argentina", "Spagna", "Francia", "Brasile", "Giappone", "Olanda"].includes(dati.nome)){
+            setgirone("A");
+            classificaGironeA();
+
+        }else{
+            setgirone("B");
+            classificaGironeB();
+        }
     }, [dati.nome]);
 
     return (
@@ -177,7 +209,8 @@ function InfoSquadra(){
             {/* Sezione POSIZIONAMENTO */}
             {elemSelezionato === "posizionamento" && (
                 <div style={{padding:"40px 16px", textAlign:"center"}}>
-                    {classificaSquadre.map((key, index) => (
+
+                    {girone=="A" ? classificaSquadreA.map((key, index) => (
                         <div
                             className={`classifica-row ${index < 3 ? `classifica-top-${index+1}` : ''}`}
                             key={key.id} style={{backgroundColor: dati.nome==key.nome ? "rgba(255,255,255,0.08)" : ""}}
@@ -191,7 +224,24 @@ function InfoSquadra(){
                             <div className="classifica-row-right">
                                 <div className="classifica-stat classifica-stat-punti">{key.punti}</div>
                                 <div className="classifica-stat">{key.partite_giocate}</div>
-                                <div className="classifica-stat">{key.gol_fatti - key.gol_subiti}</div>
+                                <div className="classifica-stat">{key.df}</div>
+                            </div>
+                        </div>
+                    )) : classificaSquadreB.map((key, index) => (
+                        <div
+                            className={`classifica-row ${index < 3 ? `classifica-top-${index+1}` : ''}`}
+                            key={key.id} style={{backgroundColor: dati.nome==key.nome ? "rgba(255,255,255,0.08)" : ""}}
+                            onClick={(e) => gestisciClickSuSquadra(e, {nome: key.nome, icona: key.icon})}
+                        >
+                            <div className="classifica-row-left">
+                                <div className="classifica-pos">{index + 1}</div>
+                                <div className="icon-classifica" style={{backgroundImage: `url(${key.icon_square})`}}></div>
+                                <div className="nome-squadra-classifica">{key.nome}</div>
+                            </div>
+                            <div className="classifica-row-right">
+                                <div className="classifica-stat classifica-stat-punti">{key.punti}</div>
+                                <div className="classifica-stat">{key.partite_giocate}</div>
+                                <div className="classifica-stat">{key.df}</div>
                             </div>
                         </div>
                     ))}

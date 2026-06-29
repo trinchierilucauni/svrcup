@@ -61,7 +61,7 @@ app.post("/api/partite", async (req, res) => {
 });
 
 app.post("/api/classifica", async (req, res) => {
-  const query = "select * from squadre order by punti";
+  const query = "select * from squadre order by (punti, gol_fatti - gol_subiti) DESC";
   try {
     const risultato = await pool.query(query);
     res.json(risultato.rows);
