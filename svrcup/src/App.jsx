@@ -24,43 +24,21 @@ function App(){
   const [isAttivo2, setisAttivo2] = useState(false);
   const [classificaMarcatoriState, setclassificaMarcatoriState]= useState([]);
   const navigate= useNavigate();
-  
-  const ottieniDataOraItalia = () => {
-    const oraAttuale = new Date();
-    
-    return oraAttuale.toLocaleString('it-IT', {
-      timeZone: 'Europe/Rome',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: false
+
+  const elencoPartite = async () => {
+    const adessoUTC = new Date();
+
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/partiteRow`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
     });
-  };
-const elencoPartite = async () => {
-  const adessoItaliaStr = new Date().toLocaleString("en-US", { timeZone: "Europe/Rome" });
-  const adessoItalia = new Date(adessoItaliaStr);
-  
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/api/partiteRow`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-  });
-  const data = await response.json();
-  
-  const filtrate = data.filter(partita => {
-    const dataPartita = new Date(partita.giorno);
-    
-    return dataPartita >= adessoItalia; 
-  });
-  
-  const primeCinqueFuture = filtrate.slice(0, 5);
-  setPartiteFuture(primeCinqueFuture);
-}
+    const data = await response.json();
+
+    const filtrate = data.filter(partita => new Date(partita.giorno) >= adessoUTC);
+    setPartiteFuture(filtrate.slice(0, 5));
+  }
 
   const classifica = async () => {
-    // Sostituito l'IP fisso con la variabile d'ambiente di Vite
     const response = await fetch(`${import.meta.env.VITE_API_URL}/api/classifica`, {
       method: "POST",
       headers: {"Content-Type": "application/json"}
@@ -75,13 +53,14 @@ const elencoPartite = async () => {
   }
 
   const cheDataScrivo = (key) => {
-    const oggi = new Date();
-    const domani = new Date();
-    domani.setDate(oggi.getDate() + 1);
+    const now = new Date();
+    const oggiUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    const domaniUTC = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() + 1));
     const dataDalDb = new Date(key.giorno);
-    if(dataDalDb.toDateString() === oggi.toDateString()) return "Oggi";
-    if(dataDalDb.toDateString() === domani.toDateString()) return "Domani";
-    return dataDalDb.getDate() + " " + dataDalDb.toLocaleString('en-EN', {month: 'short', timeZone: "UTC"});
+    const dataUTC = new Date(Date.UTC(dataDalDb.getUTCFullYear(), dataDalDb.getUTCMonth(), dataDalDb.getUTCDate()));
+    if (dataUTC.getTime() === oggiUTC.getTime()) return "Oggi";
+    if (dataUTC.getTime() === domaniUTC.getTime()) return "Domani";
+    return dataDalDb.getUTCDate() + " " + dataDalDb.toLocaleString('en-EN', { month: 'short', timeZone: "UTC" });
   }
 
   const classificaMarcatori= async()=>{
@@ -93,23 +72,21 @@ const elencoPartite = async () => {
     setclassificaMarcatoriState(data);
   }
 
-const cheOraScrivo = (giorno) => {
-const d = new Date(giorno);
-  
-  // Usiamo i metodi locali (senza UTC) perché la data è già interpretata nel fuso italiano
-  const ore = d.getHours().toString().padStart(2, '0');
-  const minuti = d.getMinutes().toString().padStart(2, '0');
-  
-  return `${ore}:${minuti}`;
-}
+  const cheOraScrivo = (giorno) => {
+    const d = new Date(giorno);
+    const ore = d.getUTCHours().toString().padStart(2, '0');
+    const minuti = d.getUTCMinutes().toString().padStart(2, '0');
+    return `${ore}:${minuti}`;
+  }
 
   const clickBottone = (bottoneCliccato) => {
     setsezioneAttiva(bottoneCliccato);
     setisAttivo(bottoneCliccato === "squadre");
     setisAttivo2(bottoneCliccato === "marcatori");
   }
+
   const gestisciClickSuGiocatore=(nomeGiocatore)=>{
-        navigate("/infogiocatore", {state: nomeGiocatore});
+    navigate("/infogiocatore", {state: nomeGiocatore});
   }
 
   useEffect(() => {
