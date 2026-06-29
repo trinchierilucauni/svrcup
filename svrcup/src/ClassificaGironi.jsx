@@ -59,7 +59,7 @@ function ClassificaGironi(){
                             {classificaSquadreA.map((key, index) => (
                                 <div
                                     className={`classifica-row ${index < 3 ? `classifica-top-${index+1}` : ''}`}
-                                    key={key.id}
+                                    key={key.nome}
                                     onClick={() => gestisciClickSuSquadra({nome: key.nome, icona: key.icon, provenienza: "/classifica"})}
                                 >
                                     <div className="classifica-row-left">
@@ -94,7 +94,7 @@ function ClassificaGironi(){
                             {classificaSquadreB.map((key, index) => (
                                 <div
                                     className={`classifica-row ${index < 3 ? `classifica-top-${index+1}` : ''}`}
-                                    key={key.id}
+                                    key={key.nome}
                                     onClick={() => gestisciClickSuSquadra({nome: key.nome, icona: key.icon, provenienza: "/classifica"})}
                                 >
                                     <div className="classifica-row-left">
@@ -105,7 +105,7 @@ function ClassificaGironi(){
                                     <div className="classifica-row-right">
                                         <div className="classifica-stat classifica-stat-punti">{key.punti}</div>
                                         <div className="classifica-stat">{key.partite_giocate}</div>
-                                        <div className="classifica-stat">{key.gol_fatti - key.gol_subiti}</div>
+                                        <div className="classifica-stat">{key.df}</div>
                                     </div>
                                 </div>
                             ))}
