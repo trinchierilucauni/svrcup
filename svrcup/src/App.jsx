@@ -81,7 +81,7 @@ const elencoPartite = async () => {
     const dataDalDb = new Date(key.giorno);
     if(dataDalDb.toDateString() === oggi.toDateString()) return "Oggi";
     if(dataDalDb.toDateString() === domani.toDateString()) return "Domani";
-    return dataDalDb.getDate() + " " + dataDalDb.toLocaleString('en-EN', {month: 'short'});
+    return dataDalDb.getDate() + " " + dataDalDb.toLocaleString('en-EN', {month: 'short', timeZone: "UTC"});
   }
 
   const classificaMarcatori= async()=>{
