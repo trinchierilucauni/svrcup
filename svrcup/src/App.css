@@ -943,4 +943,140 @@ body{
     padding-left: 16px;
     padding-right: 16px;
     padding-bottom: 20px;
+}   
+/* ===== INFO GIOCATORE ===== */
+.rettangolo-infoGiocatore {
+    gap: 16px;
+    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    height: 110px;
+    width: 100%;
+    background-color: #111;
+    border: 1px solid #1E1E1E;
+    border-radius: 12px;
+    margin-top: 16px;
+}
+
+.bandiera-squadra {
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
+    height: 70px;
+    width: 70px;
+    border: 1px solid #2A2A2A;
+    flex-shrink: 0;
+}
+
+.ruolo-InfoGiocatore {
+    color: #555;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.nomeInfoGiocatore {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.3px;
+    line-height: 1.2;
+}
+
+.squadra-InfoGiocatore {
+    color: #555;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 3px;
+}
+
+.containerBoxInfoGiocatore {
+    gap: 8px;
+    margin-top: 12px;
+    display: flex;
+}
+
+.boxInfoGiocatore {
+    padding: 14px 16px;
+    background-color: #111;
+    border: 1px solid #1E1E1E;
+    border-radius: 12px;
+    height: 90px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.boxDeiFalli {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.boxInfoGiocatore-gialli {
+    padding: 14px 16px;
+    background-color: #2E1F00;
+    border: 1px solid #3A2800;
+    border-radius: 12px;
+    height: 90px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.boxInfoGiocatore-rossi {
+    padding: 14px 16px;
+    background-color: #300508;
+    border: 1px solid #3D060A;
+    border-radius: 12px;
+    height: 90px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.boxText {
+    color: #555;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 1;
+}
+
+.boxText-gialli {
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #FFC400;
+    opacity: 0.6;
+}
+
+.boxText-rossi {
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #D6454F;
+    opacity: 0.6;
+}
+
+.boxValue {
+    color: white;
+    font-weight: 700;
+    font-size: 26px;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: -0.5px;
 }

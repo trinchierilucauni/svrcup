@@ -108,6 +108,9 @@ const d = new Date(giorno);
     setisAttivo(bottoneCliccato === "squadre");
     setisAttivo2(bottoneCliccato === "marcatori");
   }
+  const gestisciClickSuGiocatore=(nomeGiocatore)=>{
+        navigate("/infogiocatore", {state: nomeGiocatore});
+  }
 
   useEffect(() => {
     elencoPartite();
@@ -198,7 +201,7 @@ const d = new Date(giorno);
           {sezioneAttiva === "marcatori" && (
             <div className="marcatori-container" style={{textAlign:"center"}}>
               {classificaMarcatoriState.map((key, index)=>(
-                <div className="top-squadra-container" key={key.id_giocatore} >
+                <div className="top-squadra-container" key={key.id_giocatore} onClick={()=>gestisciClickSuGiocatore(key.nome_giocatore)}>
                   <div className="top-squadra-leftContainer">
                     <div className="posizione">{index + 1}</div>
                     <div className="icon-top-squadra" style={{backgroundImage: `url(${key.icon_square})`}}></div>

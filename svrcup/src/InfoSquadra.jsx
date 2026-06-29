@@ -14,7 +14,7 @@ function InfoSquadra(){
     const [classificaSquadre, setclassificaSquadre]= useState([]);
     const [classificaSquadreA, setclassificaSquadreA]= useState([]);
     const [classificaSquadreB, setclassificaSquadreB]= useState([]);
-
+    
     const [girone, setgirone]= useState("");
     const partitedellaSquadra = async () => {
         // Sostituito localhost con la variabile d'ambiente di Vite usando i backtick
@@ -101,6 +101,10 @@ function InfoSquadra(){
 
     const gestisciClickSuPartita=(partitaInfo)=>{
         navigate("/infopartita",{state: partitaInfo})
+    }
+
+    const gestisciClickSuGiocatore=(nomeGiocatore)=>{
+        navigate("/infogiocatore", {state: nomeGiocatore});
     }
 
     useEffect(() => {
@@ -192,7 +196,7 @@ function InfoSquadra(){
                         </div>
                     )}
                     {componentiSquadra.map((key, index) => (
-                        <div className="componente-squadra-container" key={key.id_giocatore}>
+                        <div className="componente-squadra-container" key={key.id_giocatore} onClick={()=>gestisciClickSuGiocatore(key.nome_giocatore)}>
                             <div className="numero-maglia">{key.numero_giocatore}</div>
                             <div className="center-componente">
                                 <div className="nome-componente">{key.nome_giocatore}</div>

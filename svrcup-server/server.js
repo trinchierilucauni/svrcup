@@ -181,6 +181,20 @@ app.post("/api/classificaMarcatori", async (req, res) => {
   }
 });
 
+app.post("/api/dataGiocatore", async(req, res)=>{
+  const query= "select * from giocatori g join squadre s on g.squadra_giocatore=s.nome where nome_giocatore=$1";
+  const {nomeGiocatore}= req.body;
+  console.log(nomeGiocatore);
+  try{
+    const risultato= await pool.query(query,[nomeGiocatore]);
+    res.json(risultato.rows);
+  }catch(errore){
+    console.error(errore);
+    res.status(500).json({ errore: "Errore del server" });
+  }
+
+
+})
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {

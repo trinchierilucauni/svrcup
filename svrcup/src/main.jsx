@@ -10,6 +10,8 @@ import NavBar from "./NavBar.jsx"
 import InfoPartita from './InfoPartita.jsx'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import ClassificaGironi from './ClassificaGironi.jsx'
+import InfoGiocatore from "./InfoGiocatore.jsx";
+
 function AppLayout(){
   return(
     <>
@@ -53,6 +55,9 @@ const router= createBrowserRouter([{
     {
       path: "*",
       element: <Navigate to={"/"} replace/>
+    },
+    {path: "infogiocatore",
+      element: <InfoGiocatore></InfoGiocatore>
     }
 
 
