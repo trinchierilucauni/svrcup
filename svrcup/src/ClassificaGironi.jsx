@@ -70,7 +70,7 @@ function ClassificaGironi(){
                                     <div className="classifica-row-right">
                                         <div className="classifica-stat classifica-stat-punti">{key.punti}</div>
                                         <div className="classifica-stat">{key.partite_giocate}</div>
-                                        <div className="classifica-stat">{key.gol_fatti - key.gol_subiti}</div>
+                                        <div className="classifica-stat">{key.df}</div>
                                     </div>
                                 </div>
                             ))}

@@ -147,7 +147,7 @@ app.post("/api/allEventi", async (req, res) => {
 });
 
 app.post("/api/classificaGironeA", async (req, res) => {
-  const query = "select s.nome, s.icon, s.icon_square, c.punti, s.partite_giocate, s.gol_fatti, s.gol_subiti, c.girone from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='A' order by c.punti DESC";
+  const query = "select s.nome, s.icon, s.icon_square, s.punti, s.partite_giocate, (s.gol_fatti - s.gol_subiti) as df, c.girone from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='A' order by (s.punti, (s.gol_fatti - s.gol_subiti)) DESC";
   try {
     const risultato = await pool.query(query);
     res.json(risultato.rows);
@@ -158,7 +158,7 @@ app.post("/api/classificaGironeA", async (req, res) => {
 });
 
 app.post("/api/classificaGironeB", async (req, res) => {
-  const query = "select s.nome, s.icon, s.icon_square, c.punti, s.partite_giocate, s.gol_fatti, s.gol_subiti, c.girone from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='B' order by c.punti DESC";
+  const query = "select s.nome, s.icon, s.icon_square, s.punti, s.partite_giocate, (s.gol_fatti - s.gol_subiti) as df, c.girone from classificagironi c join squadre s on c.nome_squadra=s.nome where girone='B' order by (s.punti, (s.gol_fatti - s.gol_subiti)) DESC";
   try {
     const risultato = await pool.query(query);
     res.json(risultato.rows);
@@ -171,7 +171,7 @@ app.post("/api/classificaGironeB", async (req, res) => {
 
 
 app.post("/api/classificaMarcatori", async (req, res) => {
-  const query = "select g.id_giocatore, g.nome_giocatore, g.gol, s.icon_square from giocatori g join squadre s on g.squadra_giocatore = s.nome order by gol LIMIT 5";
+  const query = "select g.id_giocatore, g.nome_giocatore, g.gol, s.icon_square from giocatori g join squadre s on g.squadra_giocatore = s.nome order by gol DESC LIMIT 5";
   try {
     const risultato = await pool.query(query);
     res.json(risultato.rows);

@@ -196,7 +196,7 @@ const d = new Date(giorno);
           )}
 
           {sezioneAttiva === "marcatori" && (
-            <div className="marcatori-container" style={{padding:"40px 16px", textAlign:"center"}}>
+            <div className="marcatori-container" style={{textAlign:"center"}}>
               {classificaMarcatoriState.map((key, index)=>(
                 <div className="top-squadra-container" key={key.id_giocatore} >
                   <div className="top-squadra-leftContainer">

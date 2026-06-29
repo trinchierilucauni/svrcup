@@ -18,12 +18,12 @@ function Partite(){
 
     const cheGiorno = (data) => {
         const d = new Date(data);
-        return d.toLocaleDateString("it-IT", { weekday: "short", day: "2-digit", month: "short" });
+        return d.toLocaleDateString("it-IT", { weekday: "short", day: "2-digit", month: "short", timeZone: "UTC"});
     }
 
     const cheOra = (data) => {
         const d = new Date(data);
-        return d.toLocaleTimeString("it-IT", {hour: "2-digit", minute: "2-digit"});
+        return d.toLocaleTimeString("it-IT", {hour: "2-digit", minute: "2-digit", timeZone: "UTC"});
     }
     
     const gestisciClickSuSquadra=(e, infoSquadra)=>{
